@@ -30,7 +30,7 @@ Demo: https://mutaaf.github.io/launcher/
 | `vars` | | CSS variables on the host: `--l-accent`, `--l-fg`, `--l-mute`, `--l-panel`, `--l-dock`, `--l-line`, `--l-hover`, `--l-scrim`, `--l-font`, `--l-trigger` |
 | `here` | | the id of the site it's on, left out of the list |
 | `apps` | all | a list of app ids, to pick and order |
-| `actions` | | site rows above the apps: `{ name, tip, href }` or `{ name, tip, run }` |
+| `actions` | | site rows above the apps: `{ name, tip, href }` or `{ name, tip, run }`, with an optional `icon` (the inside of a 24×24 SVG, drawn in the accent colour) |
 | `onLaunch` | | `function ({ id, name, href, kind })`, for analytics; never blocks a launch |
 | `onOpen` | | called when the palette opens |
 | `shortcuts` | `true` | ⌘K / Ctrl+K toggles, `/` opens (never while you're typing) |

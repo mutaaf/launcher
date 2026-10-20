@@ -16,7 +16,7 @@
 }(typeof self !== 'undefined' ? self : this, function (root) {
   'use strict';
 
-  var VERSION = '1.0.0';
+  var VERSION = '1.0.1';
 
   // 64×64 app icons, each self-contained (its own gradients), plus two 24×24 glyphs
   var ICONS = {
@@ -32,6 +32,7 @@
     cto: "<defs><linearGradient id=\"lg-cto\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0\" stop-color=\"#2A1A10\"/><stop offset=\"1\" stop-color=\"#0B0B0C\"/></linearGradient></defs><rect width=\"64\" height=\"64\" rx=\"14\" fill=\"url(#lg-cto)\"/><path d=\"M43.3 22.1A15 15 0 1 0 43.3 41.9\" fill=\"none\" stroke=\"#F2EDE4\" stroke-width=\"5\" stroke-linecap=\"round\"/><path d=\"M32 26.5l5.5 5.5-5.5 5.5-5.5-5.5z\" fill=\"#C96E2C\"/>",
     mz: "<rect width=\"64\" height=\"64\" rx=\"14\" fill=\"#F3F1EC\"/><path d=\"M17 46V19l15 16 15-16v27\" fill=\"none\" stroke=\"#15181B\" stroke-width=\"5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><circle cx=\"50\" cy=\"13\" r=\"3.5\" fill=\"#7BE3C3\"/>",
     _find: "<circle cx=\"10.5\" cy=\"10.5\" r=\"6.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"/><path d=\"M15.5 15.5L21 21\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\"/>",
+    _go: "<path d=\"M7 17L17 7M9 7h8v8\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>",
     _grid: "<g fill=\"currentColor\"><circle cx=\"5\" cy=\"5\" r=\"2.2\"/><circle cx=\"12\" cy=\"5\" r=\"2.2\"/><circle cx=\"19\" cy=\"5\" r=\"2.2\"/><circle cx=\"5\" cy=\"12\" r=\"2.2\"/><circle cx=\"12\" cy=\"12\" r=\"2.2\"/><circle cx=\"19\" cy=\"12\" r=\"2.2\"/><circle cx=\"5\" cy=\"19\" r=\"2.2\"/><circle cx=\"12\" cy=\"19\" r=\"2.2\"/><circle cx=\"19\" cy=\"19\" r=\"2.2\"/></g>"
   };
 
@@ -86,6 +87,7 @@
     '.opt{display:flex;align-items:center;gap:12px;padding:8px 10px;min-height:48px;border-radius:10px;cursor:pointer;color:inherit;text-decoration:none}',
     '.opt[aria-selected=true]{background:var(--l-hover)}',
     '.opt .oi{flex:0 0 auto;width:34px;height:34px}',
+    '.tile{display:flex;width:34px;height:34px;align-items:center;justify-content:center;border-radius:9px;background:var(--l-hover);color:var(--l-accent)}.tile svg{width:18px;height:18px}',
     '.opt .ot{flex:1;min-width:0}.opt .ot b{display:block;font-size:15px;font-weight:600}.opt .ot span{display:block;font-size:12.5px;color:var(--l-mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}',
     '.opt .ok{flex:0 0 auto;font-size:11px;color:var(--l-mute)}',
     '.none{padding:22px 10px;color:var(--l-mute);font-size:14px}',
@@ -185,7 +187,8 @@
       return 1;
     }
     function row(a, i) {
-      var ic = a.icon ? '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true">' + a.icon + '</svg>' : (ICONS[a.id] ? svg(a.id) : svg('_grid', '0 0 24 24'));
+      // actions sit on a tile with a 24×24 glyph (theirs, or an arrow); apps show their own icon
+      var ic = a.kind === 'Action' ? '<span class="tile"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">' + (a.icon || ICONS._go) + '</svg></span>' : svg(a.id);
       return '<li><a class="opt" role="option" id="lo' + i + '" data-i="' + i + '" aria-selected="' + (i === active) + '"' + (a.href ? ' href="' + esc(a.href) + '"' : '') + '>' +
         '<span class="oi">' + ic + '</span><span class="ot"><b>' + esc(a.name) + '</b><span>' + esc(a.tip) + '</span></span><span class="ok">' + esc(a.kind === 'Action' ? '' : a.kind) + '</span></a></li>';
     }

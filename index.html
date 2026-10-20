@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>launcher</title>
+<meta name="description" content="One app launcher shared by mutaafaziz.com, digitalcraftai.com and cto.digitalcraftai.com.">
+<style>
+  :root{--paper:#F3F1EC;--ink:#15181B;--mute:#5E6468;--line:rgba(21,24,27,.12)}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.6 "Avenir Next",Avenir,"Segoe UI","Helvetica Neue",Arial,sans-serif}
+  header{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px max(16px,calc(50vw - 480px));border-bottom:1px solid var(--line)}
+  header b{font-size:18px;letter-spacing:-.01em}
+  main{max-width:960px;margin:0 auto;padding:40px 16px 140px}
+  h1{margin:0 0 8px;font-size:clamp(34px,6vw,56px);font-weight:500;letter-spacing:-.03em;line-height:1}
+  p.lede{max-width:56ch;color:var(--mute);margin:0 0 32px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:22px 16px;margin:0 0 40px;padding:0;list-style:none}
+  .grid li{display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;font-size:13px}
+  .grid svg{width:64px;height:64px;filter:drop-shadow(0 6px 14px rgba(0,0,0,.18))}
+  .grid small{color:var(--mute)}
+  .skins{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+  .skin{border:1px solid var(--line);border-radius:14px;padding:18px;display:flex;align-items:center;justify-content:space-between}
+  .skin.dark{background:#0B0B0C;color:#F2EDE4;border-color:#222}
+  .skin.night{background:#0A1016;color:#E6ECEF;border-color:#1c2a33}
+  pre{overflow:auto;background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px;font:13px/1.5 ui-monospace,"SF Mono",Menlo,monospace}
+  kbd{font:12px ui-monospace,Menlo,monospace;border:1px solid var(--line);border-radius:5px;padding:2px 6px;background:#fff}
+</style>
+</head>
+<body>
+<header><b>launcher</b><span id="here"></span></header>
+<main>
+  <h1>One launcher, three sites.</h1>
+  <p class="lede">The same apps, palette and launch on mutaafaziz.com (a dock), digitalcraftai.com and cto.digitalcraftai.com (a button in the navbar). Press <kbd>⌘K</kbd>, <kbd>Ctrl+K</kbd> or <kbd>/</kbd>.</p>
+  <ul class="grid" id="icons"></ul>
+  <h2>Skins</h2>
+  <div class="skins">
+    <div class="skin"><span>Light, button</span><span id="t1"></span></div>
+    <div class="skin night"><span>Dark, sky accent</span><span id="t2"></span></div>
+    <div class="skin dark"><span>Dark, copper accent</span><span id="t3"></span></div>
+  </div>
+  <h2>Use</h2>
+<pre>&lt;script src="launcher.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+  // a button you already have (the Digital Craft sites)
+  Launcher.mount({ trigger: document.querySelector('#apps'), theme: 'dark', here: 'cto',
+                   vars: { '--l-accent': '#C96E2C' } });
+  // or a bottom dock (mutaafaziz.com)
+  Launcher.mount({ mode: 'dock', here: 'mz' });
+&lt;/script&gt;</pre>
+</main>
+<script src="src/launcher.js"></script>
+<script>
+  var list = Launcher.apps(), ul = document.getElementById('icons');
+  list.forEach(function (a) {
+    var li = document.createElement('li');
+    li.innerHTML = Launcher.icon(a.id) + '<span><b>' + a.name + '</b><br><small>' + a.kind + '</small></span>';
+    ul.appendChild(li);
+  });
+  Launcher.mount({ target: document.getElementById('t1'), shortcuts: false });
+  Launcher.mount({ target: document.getElementById('t2'), theme: 'dark', vars: { '--l-accent': '#33C3F0' }, here: 'dc', shortcuts: false });
+  Launcher.mount({ target: document.getElementById('t3'), theme: 'dark', vars: { '--l-accent': '#C96E2C' }, here: 'cto', shortcuts: false });
+  window.dock = Launcher.mount({ mode: 'dock' });
+</script>
+</body>
+</html>

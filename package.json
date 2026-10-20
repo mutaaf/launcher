@@ -1,0 +1,17 @@
+{
+  "name": "@mutaaf/launcher",
+  "version": "1.0.2",
+  "description": "One app launcher (dock, ⌘K palette, launch) shared by mutaafaziz.com, digitalcraftai.com and cto.digitalcraftai.com. Zero dependencies, ES5, shadow DOM.",
+  "main": "src/launcher.js",
+  "browser": "src/launcher.js",
+  "files": ["src", "README.md", "LICENSE"],
+  "scripts": {
+    "test": "node test/run.mjs"
+  },
+  "repository": { "type": "git", "url": "git+https://github.com/mutaaf/launcher.git" },
+  "license": "MIT",
+  "devDependencies": {
+    "acorn": "^8.11.3",
+    "playwright": "^1.60.0"
+  }
+}

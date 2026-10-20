@@ -16,7 +16,7 @@
 }(typeof self !== 'undefined' ? self : this, function (root) {
   'use strict';
 
-  var VERSION = '1.0.1';
+  var VERSION = '1.0.2';
 
   // 64×64 app icons, each self-contained (its own gradients), plus two 24×24 glyphs
   var ICONS = {
@@ -337,8 +337,9 @@
         else if (e.key === '/' && !e.metaKey && !e.ctrlKey && !e.altKey && pal.hidden && !typing(e)) { e.preventDefault(); open(trigger); }
       });
     }
-    // coming back with the browser's back button: no leftover flood
-    on(root, 'pageshow', function () { fly.style.transition = 'none'; fly.style.clipPath = 'circle(0 at 50% 50%)'; close(); });
+    // coming back with the browser's back button (a page restored from the back-forward cache): no
+    // leftover flood. pageshow also fires on the first load, often after a quick ⌘K, so only on restore.
+    on(root, 'pageshow', function (e) { if (!e.persisted) return; fly.style.transition = 'none'; fly.style.clipPath = 'circle(0 at 50% 50%)'; close(); });
 
     return {
       open: function () { open(trigger); },

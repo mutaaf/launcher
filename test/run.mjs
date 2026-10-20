@@ -123,6 +123,15 @@ await t('dock mode: dock on desktop, thumb button and bottom sheet on phones; ic
   await ph.close();
 });
 
+await t('opened before the page finishes loading, it stays open (pageshow on first load is not a restore)', async () => {
+  const p = await page('<button id="apps"></button>');
+  await p.evaluate(() => { window.L = Launcher.mount({ trigger: document.getElementById('apps') }); L.open(); window.dispatchEvent(new PageTransitionEvent('pageshow', { persisted: false })); });
+  ok(await p.evaluate(() => L.isOpen()), 'a first-load pageshow closed it');
+  await p.evaluate(() => window.dispatchEvent(new PageTransitionEvent('pageshow', { persisted: true })));
+  ok(!(await p.evaluate(() => L.isOpen())), 'a back-forward restore left it open');
+  await p.close();
+});
+
 await t('reduced motion: launching navigates at once, with no flood', async () => {
   const p = await page('<button id="apps"></button>', { reducedMotion: 'reduce' });
   await p.evaluate(() => Launcher.mount({ trigger: document.getElementById('apps') }).open());

@@ -16,7 +16,7 @@
 }(typeof self !== 'undefined' ? self : this, function (root) {
   'use strict';
 
-  var VERSION = '1.0.3';
+  var VERSION = '1.0.5';
 
   // 64×64 app icons, each self-contained (its own gradients), plus two 24×24 glyphs
   var ICONS = {

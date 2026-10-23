@@ -111,7 +111,7 @@ await t('dock mode: dock on desktop, thumb button and bottom sheet on phones; ic
   const p = await page('', { viewport: { width: 1280, height: 800 } });
   await p.evaluate(() => { window.L = Launcher.mount({ mode: 'dock', here: 'mz' }); });
   const d = await p.evaluate(() => { const s = document.querySelector('[data-launcher]').shadowRoot; return [getComputedStyle(s.querySelector('.dock')).display, getComputedStyle(s.querySelector('.fab')).display, s.querySelectorAll('.dock a').length]; });
-  ok(d[0] === 'flex' && d[1] === 'none' && d[2] === 12, d.join(','));
+  ok(d[0] === 'flex' && d[1] === 'none' && d[2] === 13, d.join(','));
   await p.evaluate(() => L.open());
   const ids = await p.evaluate(() => [...document.querySelector('[data-launcher]').shadowRoot.querySelectorAll('[id^="lg-"]')].map((e) => e.id));
   ok(ids.length && new Set(ids).size === ids.length, 'duplicate gradient ids');

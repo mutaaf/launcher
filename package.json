@@ -1,6 +1,6 @@
 {
   "name": "@mutaaf/launcher",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "One app launcher (dock, ⌘K palette, launch) shared by mutaafaziz.com, digitalcraftai.com and cto.digitalcraftai.com. Zero dependencies, ES5, shadow DOM.",
   "main": "src/launcher.js",
   "browser": "src/launcher.js",

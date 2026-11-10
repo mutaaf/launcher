@@ -41,7 +41,9 @@ Demo: https://mutaaf.github.io/launcher/
 
 ## The apps
 
-The list in `src/launcher.js` is the one source. Adding an app means one row in `APPS` and one 64×64 icon in `ICONS` (self-contained: its own gradients). Link only to things that exist, and deep-link only with parameters the target app really reads (see that repo's AGENTS.md § URL parameters).
+The list comes from [Cast List](https://mutaafaziz.com/cast/) ([github.com/mutaaf/cast-list](https://github.com/mutaaf/cast-list)), the portfolio's one app catalog. `APPS` in `src/launcher.js` is generated: `npm run sync` rewrites it from `https://mutaafaziz.com/cast/api/launcher`, and CI fails if it differs (`node scripts/sync.mjs --check`). To add or rename an app, change the catalog, then sync. The icon stays here: one 64×64 entry in `ICONS`, keyed by the same id (self-contained: its own gradients). Deep-link only with parameters the target app really reads (see that repo's AGENTS.md § URL parameters).
+
+1.1.0 (2026-11-10): generated from Cast List. Chalk Talk joins; Moon Club, 17-0 and The Leadership Library carry their catalog names, and old names stay searchable.
 
 Behaviour, from mutaafaziz.com's original: recents first, results grouped by kind, ↑ ↓ ↵, ⌘↵ for a new tab, modifier and middle clicks keep the browser's own new-tab behaviour, reduced motion navigates at once, phones get a bottom sheet you drag down to dismiss and don't get the keyboard thrown at them.
 

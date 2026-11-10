@@ -11,4 +11,5 @@ jobs:
         with: { node-version: 22 }
       - run: npm ci
       - run: npx playwright install --with-deps chromium
+      - run: node scripts/sync.mjs --check   # APPS must match Cast List, the one catalog
       - run: npm test
